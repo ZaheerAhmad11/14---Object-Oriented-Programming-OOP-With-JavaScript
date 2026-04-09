@@ -228,69 +228,342 @@
 // console.log(ford)
 
 // -----------------------15
-// -------------------------inheritence between classws constructor function
- const Person = function (firstname, birthyear) {
-  
-  this.firstname = firstname;
-  this.birthyear = birthyear;
-};
+// -------------------------inheritence between classes constructor function
+// const Person = function (firstname, birthyear) {
 
-Person.prototype.calcage = function () {
-  console.log(2037 - this.birthyear)
-}
+//   this.firstname = firstname;
+//   this.birthyear = birthyear;
+// };
 
-const Student = function(firstname, birthyear, course){
-  Person.call(this, firstname,  birthyear)
-  this.course = course;
-};
+// Person.prototype.calcage = function () {
+//   console.log(2037 - this.birthyear)
+// }
 
-// Linking Prototypes
-Student.prototype = Object.create(Person.prototype)
+// const Student = function(firstname, birthyear, course){
+//   Person.call(this, firstname,  birthyear)
+//   this.course = course;
+// };
 
-Student.prototype.introduce = function (){
-  console.log(` My Name is ${this,this.firstname} and i study in ${this.course}`) 
-} 
-const mike = new Student('Mike', 2020, 'Computer Science')
+// // Linking Prototypes
+// Student.prototype = Object.create(Person.prototype)
 
-mike.introduce();
-mike.calcage(); 
+// Student.prototype.introduce = function (){
+//   console.log(` My Name is ${this,this.firstname} and i study in ${this.course}`)
+// }
+// const mike = new Student('Mike', 2020, 'Computer Science')
 
+// mike.introduce();
+// mike.calcage();
 
+// -----------------------16
+// -------------------------Coding Challenge # 3
 
+// const Car = function (make , speed) {
+//   this.make = make;
+//   this.speed = speed;
+// }
 
+// Car.prototype.accelerate = function () {
+//   this.speed += 10;
+//   console.log(` ${this.make} is going with ${this.speed} km/h`)
+// }
+// Car.prototype.brake = function () {
+//   this.speed -= 5;
+//   console.log(` ${this.make} is going with ${this.speed} km/h`)
+// }
 
+// const bmw = new Car('BMW', 120);
+// bmw.accelerate();
+// bmw.brake();
 
+// const Ev = function(make,speed ,charge ) {
+//   Car.call(this, make,speed);
+//   this.charge = charge;
+// }
 
+// //Link Prototype
 
+// Ev.prototype = Object.create(Car.prototype);
 
+// Ev.prototype.chargeBattery = function (chargeTo) {
+//   this.charge = chargeTo;
+//   this.speed += 20;
+//   this.charge --;
+//   console.log(` ${this.make} is going with ${this.speed} km/h, with the charge of ${this.charge}`)
+// }
+// const tesla = new Ev('Tesla', 120, 23)
 
+// tesla.chargeBattery(90);
+// tesla.chargeBattery(90);
+// tesla.chargeBattery(90);
+// tesla.chargeBattery(90);
+// console.log(tesla)
 
+// -----------------------17
+// -------------------------inheritence between classes ES6
 
+// class PersonCl {
+//   constructor(fullName, birthyear) {
+//     this.fullName = fullName;
+//     this.birthyear = birthyear;
+//   }
+//   // Instance Method
+//   // Methods will be added to .prototype property
+//   calcAge() {
+//     console.log(2037 - this.birthyear);
+//   }
+//   greet() {
+//     console.log(`Hey ${this.fullName}`);
+//   }
+//   get age() {
+//     return 2037 - this.birthyear;
+//   }
+//   //Set a property that already exsist
+//   set fullName(name) {
+//     if (name.includes(' ')) this._fullName = name;
+//     else alert(`${name} is not a Full Name`);
+//   }
+//   get fullName() {
+//     return this._fullName;
+//   }
+//   // -------------------------Static Method
+//   static hey() {
+//     console.log(`Hey there 👋`);
+//     console.log(this);
+//   }
+// }
 
+// // Linked Classes with "extends"
+// class StudentCl extends PersonCl {
+//   constructor(fullName, birthyear, course) {
+//     //Always needs to happen first
+//     super(fullName, birthyear);
+//     this.course = course;
+//   }
+//   introduce () {
+//     console.log(`My Name iS ${this.fullName} And I Stydy ${this,this.course}`)
+//   }
+//   calcAge() {
+//     console.log(`I'm ${2037 - this.birthyear} years old, but as a student i feel more like ${2037 - this.birthyear + 10}`);
+//   }
+// }
+// const martha = new StudentCl('Martha Jones', 2012 , 'Computer Science')
+// martha.introduce();
+// martha.calcAge();
 
+// -----------------------18
+// -------------------------inheritence between classes Object.create
+// const PersonProto = {
+//   calcage() {
+//     console.log(2037 - this.birthyear);
+//   },
 
+//   init(firstname, birthyear) {
+//     this.firstname = firstname;
+//     this.birthyear = birthyear;
+//   },
+// };
+// // Linked parent class with chil
+// const steven = Object.create(PersonProto);
 
+// // Linked parent class with chil
+// const StudentProto = Object.create(PersonProto);
 
+// StudentProto.init = function (firstname, birthyear, course) {
+//   PersonProto.init.call(this, firstname, birthyear);
+//   this.course = course;
+// };
 
+// StudentProto.introduce = function () {
+//   console.log(`My Name iS ${this.firstname} And I Stydy ${this.course}`);
+// };
 
+// const jay = Object.create(StudentProto);
+// jay.init('Jay', 2010, 'Computer Science');
+// jay.introduce();
+// jay.calcage();
 
+// -----------------------19
+// -------------------------An other Class
 
+// class Account {
+//   constructor(owner, currency, pin) {
+//     this.owner = owner;
+//     this.currency = currency;
+//     this.pin = pin;
+//     this.movements = [];
+//     console.log(`Thanks For Opening Account ${owner}`);
+//   }
+//   deposit(val) {
+//     this.movements.push(val);
+//   }
+//   withdwral(val) {
+//     this.deposit(-val);
+//   }
+//   approveLoan(val) {
+//     return true;
+//   }
+//   reqLoan(val) {
+//     if (this.approveLoan(val)) {
+//       this.deposit(val);
+//       console.log(`Loan had been Approve`);
+//     }
+//   }
+// }
 
+// const acc1 = new Account('Jonas', 'EUR', 1111);
+// acc1.deposit(200);
+// acc1.withdwral(140);
+// acc1.approveLoan();
+// acc1.reqLoan(200);
+// console.log(acc1);
 
+// -----------------------20
+// -------------------------Encapsulation Protected Properties And Methods
 
+// class Account {
+//   constructor(owner, currency, pin) {
+//     this.owner = owner;
+//     this.currency = currency;
+//     this._pin = pin;
+//     this._movements = [];
+//     console.log(`Thanks For Opening Account ${owner}`);
+//   }
+//   //Public interface
+//   getMovments() {
+//     return this._movements;
+//   }
+//   deposit(val) {
+//     this._movements.push(val);
+//   }
+//   withdwral(val) {
+//     this.deposit(-val);
+//   }
+//   _approveLoan(val) {
+//     return true;
+//   }
+//   _requestLoan(val) {
+//     if (this._approveLoan(val)) {
+//       this.deposit(val);
+//       console.log(`Loan had been Approve`);
+//     }
+//   }
+// }
 
+// const acc1 = new Account('Jonas', 'EUR', 1111);
+// acc1.deposit(200);
+// acc1.withdwral(140);
+// acc1._approveLoan();
+// acc1._requestLoan(200);
+// console.log(acc1);
 
+// -----------------------20
+// -------------------------Encapsulation Privete Class Fields and methods
 
+//1) Public Filed
+//2) Private Filed
+//3) Public Method
+//4) Private Method
+//5) Static Version
 
+// class Account {
+//   // 1) Public Fileds ('instances' not Prototype )
+//   locale = navigator.language;
+//   // _movements = [];
+//   // 2) Private Filed (use of #)('instances' not Prototype )
+//   #movements = [];
+//   #pin;
+//   constructor(owner, currency, pin) {
+//     this.owner = owner;
+//     this.currency = currency;
+//     this.#pin = pin;
+//     // this._movements = [];
+//     // this.locale = navigator.language;
+//     console.log(`Thanks For Opening Account ${owner}`);
+//     console.log(this.locale);
+//   }
+//   //3) Public Method
+//   //Public interface
+//   getMovments() {
+//     return this.#movements;
+//   }
+//   deposit(val) {
+//     this.#movements.push(val);
+//   }
+//   withdwral(val) {
+//     this.deposit(-val);
+//   }
+//   requestLoan(val) {
+//     if (this._approveLoan(val)) {
+//       this.deposit(val);
+//       console.log(`Loan had been Approve`);
+//     }
+//   }
+//   //4) Private Method
+//   _approveLoan(val) {
+//     return true;
+//   }
+//   //5) Static Version
+//   static helper = function () {
+//     console.log(`Helper...`)
+//   }
+// }
 
+// const acc1 = new Account('Jonas', 'EUR', 1111);
+// acc1.deposit(200);
+// acc1.withdwral(140);
+// acc1.requestLoan(200);
+// console.log(acc1.getMovments());
+// // console.log(acc1.#movments);
+// Account.helper();
 
+// -----------------------21
+// -------------------------Chaining Methods
+// class Account {
+//   locale = navigator.language;
+//   #movements = [];
+//   #pin;
+//   constructor(owner, currency, pin) {
+//     this.owner = owner;
+//     this.currency = currency;
+//     this.#pin = pin;
+//     console.log(`Thanks For Opening Account ${owner}`);
+//     console.log(this.locale);
+//   }
+//   getMovments() {
+//     return this.#movements;
+//   }
+//   deposit(val) {
+//     this.#movements.push(val);
+//     return this;
+//   }
+//   withdwral(val) {
+//     this.deposit(-val);
+//     return this;
+//   }
+//   requestLoan(val) {
+//     if (this._approveLoan(val)) {
+//       this.deposit(val);
+//       console.log(`Loan had been Approve`);
+//       return this;
+//     }
+//   }
+//   _approveLoan(val) {
+//     return true;
+//   }
+//   static helper = function () {
+//     console.log(`Helper...`)
+//   }
+// }
 
+// const acc1 = new Account('Jonas', 'EUR', 1111);
+// // -------------------------Chaining Methods
+// acc1.deposit(200).withdwral(140).requestLoan(200).deposit(200).deposit(500).withdwral(100).deposit(1000).withdwral(5000);
+// console.log(acc1.getMovments());
 
-
-
-
-
-
+// -----------------------22
+// -------------------------ES6 Classes Summary
+//--------------------------------------------\\
 
 
 
